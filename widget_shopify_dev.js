@@ -22,7 +22,7 @@ function createAndAppendWidget() {
     background-repeat: no-repeat;
 }
 
-/* Mobile */
+/* Mobile icon size */
 @media (max-width: 768px) {
     #feedback-widget-icon {
         width: 50px;
@@ -40,32 +40,30 @@ function createAndAppendWidget() {
     z-index: 99998;
 }
 
-/* ПОПАП (десктоп): максимум 800px по ширине */
+/* ПОПАП — ДЕСКТОП ( > 768px ) */
 #feedback-popup {
     display: none;
     position: fixed;
-    top: 50%;
+
+    top: 40px;                     /* 40px сверху */
     left: 50%;
+    transform: translateX(-50%);
 
     width: 90%;
-    max-width: 800px;
-    height: 100vh;
+    max-width: 800px;             /* максимальная ширина на десктопе */
 
-    transform: translate(-50%, -50%);
-    top: 40px;                          /* отступ сверху */
-    height: calc(100vh - 80px);         /* 40px сверху + 40px снизу */
-
-    margin-bottom: 40px;                /* отступ снизу */
+    height: calc(100vh - 80px);   /* 40 сверху + 40 снизу */
 
     background: white;
-    border-radius: 0;
+    border-radius: 0;             /* квадратные углы */
+
     z-index: 999999;
     overflow: hidden;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* iframe занимает ВСЮ область попапа */
+/* iframe занимает всю область */
 #feedback-iframe {
     width: 100%;
     height: 100%;
@@ -86,17 +84,19 @@ function createAndAppendWidget() {
     border-radius: 50%;
 }
 
-/* МОБИЛЬНОЕ ОТОБРАЖЕНИЕ (≤ 768px) */
+/* МОБИЛЬНАЯ ВЕРСИЯ (≤ 768px)
+   Попап занимает ВСЮ ширину и ВСЮ высоту экрана */
 @media (max-width: 768px) {
     #feedback-popup {
-        width: calc(100% - 0px);
+        top: 0;
         left: 0;
         transform: none;
 
-        top: 0px;                          /* отступ сверху */
+        width: 100vw;             /* ширина = ширине экрана */
+        height: 100vh;            /* высота = высоте экрана */
+        max-width: none;
 
-        margin-bottom: 0px;                /* отступ снизу */
-        border-radius: 0;
+        border-radius: 0;         /* углы квадратные */
     }
 
     #feedback-close-btn {
