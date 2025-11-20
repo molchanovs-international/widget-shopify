@@ -46,15 +46,20 @@ function createAndAppendWidget() {
     position: fixed;
     width: 90%;
     max-width: 800px;
+
+    /* НОВОЕ: минимальная высота */
+    min-height: 500px;
+
     max-height: 90vh;
     height: auto;
+
     background: white;
     border-radius: 12px;
     z-index: 999999;
-    overflow: hidden;      /* ВАЖНО */
-    padding: 0;            /* НЕТ ПАДДИНГОВ!!! */
+    overflow: hidden;
+    padding: 0;
     box-sizing: border-box;
-    
+
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
