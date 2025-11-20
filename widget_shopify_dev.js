@@ -40,32 +40,36 @@ function createAndAppendWidget() {
     z-index: 99998;
 }
 
-/* ПОПАП: ВСЕГДА НА ВЕСЬ ЭКРАН */
+/* ПОПАП (десктоп): максимум 800px по ширине */
 #feedback-popup {
     display: none;
     position: fixed;
+    top: 50%;
+    left: 50%;
 
-    inset: 0;             /* заменяет top/left/right/bottom */
-    width: 100vw;
-    height: 100vh;        /* фиксированная высота = решает проблему iframe */
+    width: 90%;
+    max-width: 800px;
+    height: 100vh;
+
+    transform: translate(-50%, -50%);
 
     background: white;
-    border-radius: 12px;
+    border-radius: 0;
     z-index: 999999;
     overflow: hidden;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* iframe занимает 100% попапа */
+/* iframe занимает ВСЮ область попапа */
 #feedback-iframe {
     width: 100%;
-    height: 100%;  /* теперь работает! */
+    height: 100%;
     border: none;
     display: block;
 }
 
-/* КНОПКА ЗАКРЫТИЯ */
+/* Кнопка закрытия */
 #feedback-close-btn {
     position: absolute;
     top: 16px;
@@ -78,9 +82,17 @@ function createAndAppendWidget() {
     border-radius: 50%;
 }
 
-/* МОБИЛЬНОЕ — тоже весь экран */
+/* МОБИЛЬНОЕ ОТОБРАЖЕНИЕ (≤ 768px) */
 @media (max-width: 768px) {
     #feedback-popup {
+        width: calc(100% - 0px);
+        left: 0;
+        transform: none;
+
+        top: 40px;                          /* отступ сверху */
+        height: calc(100vh - 80px);         /* 40px сверху + 40px снизу */
+
+        margin-bottom: 40px;                /* отступ снизу */
         border-radius: 0;
     }
 
@@ -114,7 +126,7 @@ function createAndAppendWidget() {
     function openPopup() {
         popup.style.display = "block";
         overlay.style.display = "block";
-        document.body.style.overflow = "hidden"; // отключаем скролл
+        document.body.style.overflow = "hidden";
     }
 
     function closePopup() {
