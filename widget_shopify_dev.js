@@ -52,6 +52,10 @@ function createAndAppendWidget() {
     height: 100vh;
 
     transform: translate(-50%, -50%);
+    top: 40px;                          /* отступ сверху */
+    height: calc(100vh - 80px);         /* 40px сверху + 40px снизу */
+
+    margin-bottom: 40px;                /* отступ снизу */
 
     background: white;
     border-radius: 0;
@@ -89,10 +93,9 @@ function createAndAppendWidget() {
         left: 0;
         transform: none;
 
-        top: 40px;                          /* отступ сверху */
-        height: calc(100vh - 80px);         /* 40px сверху + 40px снизу */
+        top: 0px;                          /* отступ сверху */
 
-        margin-bottom: 40px;                /* отступ снизу */
+        margin-bottom: 0px;                /* отступ снизу */
         border-radius: 0;
     }
 
