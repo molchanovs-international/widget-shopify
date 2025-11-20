@@ -48,9 +48,7 @@ function createAndAppendWidget() {
     min-height: 500px;
     max-height: 90vh;
     background: white;
-    border-radius: 12px;
     z-index: 999999;
-    padding: 32px;
     box-sizing: border-box;    /* ВАЖНО */
     overflow: hidden;
     left: 50%;
