@@ -1,14 +1,19 @@
-function feedback_widget() {
-    createAndAppendWidget();
+function feedback_widget(utm_source_id) {
+    createAndAppendWidget(utm_source_id);
 }
 
-function createAndAppendWidget() {
+function createAndAppendWidget(utm_source_id) {
     const widgetContainer = document.createElement('div');
+
+    // Build iframe URL with manually provided UTM
+    const iframeURL =
+        "https://move.molchanovs.com/version-12vig/iframe" +
+        (utm_source_id ? `?utm_source_id=${encodeURIComponent(utm_source_id)}` : "");
 
     widgetContainer.innerHTML = `
 <style>
 
-/* ИКОНКА */
+/* ICON */
 #feedback-widget-icon {
     position: fixed;
     bottom: 30px;
@@ -22,7 +27,6 @@ function createAndAppendWidget() {
     background-repeat: no-repeat;
 }
 
-/* Mobile icon size */
 @media (max-width: 768px) {
     #feedback-widget-icon {
         width: 50px;
@@ -30,7 +34,7 @@ function createAndAppendWidget() {
     }
 }
 
-/* ЗАТЕМНЕНИЕ */
+/* OVERLAY */
 #feedback-overlay {
     display: none;
     position: fixed;
@@ -40,22 +44,22 @@ function createAndAppendWidget() {
     z-index: 99998;
 }
 
-/* ПОПАП — ДЕСКТОП ( > 768px ) */
+/* POPUP — DESKTOP */
 #feedback-popup {
     display: none;
     position: fixed;
 
-    top: 40px;                     /* 40px сверху */
+    top: 40px;
     left: 50%;
     transform: translateX(-50%);
 
     width: 90%;
-    max-width: 800px;             /* максимальная ширина на десктопе */
+    max-width: 800px;
 
-    height: calc(100vh - 80px);   /* 40 сверху + 40 снизу */
+    height: calc(100vh - 80px);
 
     background: white;
-    border-radius: 0;             /* квадратные углы */
+    border-radius: 0;
 
     z-index: 999999;
     overflow: hidden;
@@ -63,7 +67,7 @@ function createAndAppendWidget() {
     box-sizing: border-box;
 }
 
-/* iframe занимает всю область */
+/* iframe full area */
 #feedback-iframe {
     width: 100%;
     height: 100%;
@@ -71,7 +75,7 @@ function createAndAppendWidget() {
     display: block;
 }
 
-/* Кнопка закрытия */
+/* CLOSE BUTTON */
 #feedback-close-btn {
     position: absolute;
     top: 16px;
@@ -84,19 +88,18 @@ function createAndAppendWidget() {
     border-radius: 50%;
 }
 
-/* МОБИЛЬНАЯ ВЕРСИЯ (≤ 768px)
-   Попап занимает ВСЮ ширину и ВСЮ высоту экрана */
+/* MOBILE POPUP */
 @media (max-width: 768px) {
     #feedback-popup {
         top: 0;
         left: 0;
         transform: none;
 
-        width: 100vw;             /* ширина = ширине экрана */
-        height: 100vh;            /* высота = высоте экрана */
+        width: 100vw;
+        height: 100vh;
         max-width: none;
 
-        border-radius: 0;         /* углы квадратные */
+        border-radius: 0;
     }
 
     #feedback-close-btn {
@@ -114,13 +117,12 @@ function createAndAppendWidget() {
 
 <div id="feedback-popup">
     <div id="feedback-close-btn">×</div>
-    <iframe id="feedback-iframe" src="https://move.molchanovs.com/version-12vig/iframe"></iframe>
+    <iframe id="feedback-iframe" src="${iframeURL}"></iframe>
 </div>
 `;
 
     document.body.appendChild(widgetContainer);
 
-    /* Элементы */
     const icon = document.getElementById("feedback-widget-icon");
     const overlay = document.getElementById("feedback-overlay");
     const popup = document.getElementById("feedback-popup");
