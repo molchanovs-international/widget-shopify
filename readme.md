@@ -12,23 +12,50 @@ This widget works on all platforms including Shopify, Webflow, Tilda, Bubble, Re
 - Floating support button in the bottom-right corner  
 - Popup with background overlay  
 - Fully responsive layout  
-- Desktop popup with margins  
+- Desktop popup with top/bottom margins  
 - Fullscreen popup on mobile  
 - Scroll lock while popup is open  
-- Embedded Molchanovs support form
+- Embedded Molchanovs support form (with tracking via `utm_source_id`)
+
+---
+
+## 🔑 Required parameter: `utm_source_id`
+
+To activate the widget, you **must provide a unique `utm_source_id`**, which identifies the store, website, or integration source.
+
+You can obtain your unique `utm_source_id` from the development team at **move.molchanovs.com**.
+
+This value allows Molchanovs to correctly link support requests to your store or system.
 
 ---
 
 ## 📥 Installation (How to run it on your website)
 
-Add the following code anywhere in your page — preferably inside `<head>` or before `</body>`:
+Add the code below anywhere on your page — preferably inside `<head>` or before `</body>`.  
+Replace `"YOUR_UTM_SOURCE_ID"` with the value provided by the Molchanovs development team.
 
 ```html
 <script>
   var script = document.createElement('script');
   script.src = 'https://molchanovs-international.github.io/widget-shopify/widget_dev.js';
+
   script.onload = function () {
-      feedback_widget();
+      feedback_widget("YOUR_UTM_SOURCE_ID"); // required unique key
   };
+
   document.head.appendChild(script);
 </script>
+```
+
+Example:
+
+```js
+feedback_widget("shopify_store_us");
+```
+
+---
+
+## 🎯 Purpose
+
+This widget provides a fast and seamless way for customers to contact  
+**Molchanovs International Support**, directly from your website, with correct attribution of source via `utm_source_id`.
