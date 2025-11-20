@@ -22,7 +22,6 @@ function createAndAppendWidget() {
     background-repeat: no-repeat;
 }
 
-/* Мобильная версия иконки */
 @media (max-width: 768px) {
     #feedback-widget-icon {
         width: 50px;
@@ -52,6 +51,7 @@ function createAndAppendWidget() {
     border-radius: 12px;
     z-index: 999999;
     padding: 32px;
+    box-sizing: border-box;    /* ВАЖНО */
     overflow: hidden;
     left: 50%;
     top: 50%;
@@ -61,8 +61,9 @@ function createAndAppendWidget() {
 /* iframe */
 #feedback-iframe {
     width: 100%;
-    height: 100%;
+    height: calc(100% - 0px);  /* ВАЖНО — iframe теперь точно занимает всё пространство */
     border: none;
+    display: block;
 }
 
 /* КНОПКА ЗАКРЫТЬ */
@@ -74,14 +75,16 @@ function createAndAppendWidget() {
     cursor: pointer;
     z-index: 1000000;
     line-height: 20px;
+    background: white;
+    padding: 6px;
+    border-radius: 50%;
 }
 
-/* Адаптация под мобильный */
 @media (max-width: 768px) {
     #feedback-popup {
         width: 100%;
         height: 100%;
-        max-height: none;
+        max-height: 100%;
         min-height: 100%;
         border-radius: 0;
         padding: 20px;
@@ -91,15 +94,19 @@ function createAndAppendWidget() {
     }
 
     #feedback-close-btn {
-        font-size: 34px;
+        font-size: 32px;
         right: 20px;
         top: 20px;
+        padding: 8px;
+    }
+
+    #feedback-iframe {
+        height: calc(100% - 0px); /* iframe снова на всю высоту */
     }
 }
 </style>
 
 <div id="feedback-widget-icon"></div>
-
 <div id="feedback-overlay"></div>
 
 <div id="feedback-popup">
@@ -110,32 +117,24 @@ function createAndAppendWidget() {
 
     document.body.appendChild(widgetContainer);
 
-    /* ЭЛЕМЕНТЫ */
     const icon = document.getElementById("feedback-widget-icon");
     const popup = document.getElementById("feedback-popup");
     const overlay = document.getElementById("feedback-overlay");
     const closeBtn = document.getElementById("feedback-close-btn");
 
-    /* ОТКРЫТИЕ ПОПАПА */
     function openPopup() {
         popup.style.display = "block";
         overlay.style.display = "block";
-        document.body.style.overflow = "hidden"; 
+        document.body.style.overflow = "hidden";
     }
 
-    /* ЗАКРЫТИЕ ПОПАПА */
     function closePopup() {
         popup.style.display = "none";
         overlay.style.display = "none";
         document.body.style.overflow = "auto";
     }
 
-    /* КЛИК ПО ИКОНКЕ */
     icon.addEventListener("click", openPopup);
-
-    /* КЛИК ПО КРЕСТИКУ */
     closeBtn.addEventListener("click", closePopup);
-
-    /* КЛИК ВНЕ ПОПАПА */
     overlay.addEventListener("click", closePopup);
 }
