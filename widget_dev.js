@@ -7,7 +7,8 @@ function createAndAppendWidget() {
 
     widgetContainer.innerHTML = `
 <style>
-/* ИКОНКА ВИДЖЕТА */
+
+/* ИКОНКА */
 #feedback-widget-icon {
     position: fixed;
     bottom: 30px;
@@ -18,10 +19,10 @@ function createAndAppendWidget() {
     z-index: 99999;
     background-image: url('https://990836f7d74713702099c8c18dc94284.cdn.bubble.io/f1732263873066x569918169448115000/QQ.svg');
     background-size: contain;
-    background-position: center;
     background-repeat: no-repeat;
 }
 
+/* Mobile */
 @media (max-width: 768px) {
     #feedback-widget-icon {
         width: 50px;
@@ -34,7 +35,7 @@ function createAndAppendWidget() {
     display: none;
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.45);
+    background: rgba(0, 0, 0, 0.45);
     backdrop-filter: blur(4px);
     z-index: 99998;
 }
@@ -43,65 +44,64 @@ function createAndAppendWidget() {
 #feedback-popup {
     display: none;
     position: fixed;
-    max-width: 800px;
     width: 90%;
-    min-height: 500px;
+    max-width: 800px;
     max-height: 90vh;
+    height: auto;
     background: white;
+    border-radius: 12px;
     z-index: 999999;
-    box-sizing: border-box;    /* ВАЖНО */
-    overflow: hidden;
+    overflow: hidden;      /* ВАЖНО */
+    padding: 0;            /* НЕТ ПАДДИНГОВ!!! */
+    box-sizing: border-box;
+    
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
 }
 
-/* iframe */
+/* iframe заполняет ВСЮ высоту */
 #feedback-iframe {
     width: 100%;
-    height: calc(100% - 0px);  /* ВАЖНО — iframe теперь точно занимает всё пространство */
+    height: 100%;          /* ВАЖНО */
     border: none;
     display: block;
 }
 
-/* КНОПКА ЗАКРЫТЬ */
+/* КНОПКА ЗАКРЫТИЯ */
 #feedback-close-btn {
     position: absolute;
-    top: 14px;
-    right: 14px;
+    top: 16px;
+    right: 16px;
+    z-index: 1000001;
     font-size: 28px;
     cursor: pointer;
-    z-index: 1000000;
-    line-height: 20px;
     background: white;
     padding: 6px;
     border-radius: 50%;
 }
 
+/* МОБИЛЬНОЕ ОТОБРАЖЕНИЕ — попап = весь экран */
 @media (max-width: 768px) {
     #feedback-popup {
         width: 100%;
         height: 100%;
-        max-height: 100%;
-        min-height: 100%;
+        max-height: none;
+        max-width: none;
         border-radius: 0;
-        padding: 20px;
         transform: none;
         left: 0;
         top: 0;
     }
 
     #feedback-close-btn {
-        font-size: 32px;
-        right: 20px;
         top: 20px;
+        right: 20px;
+        font-size: 34px;
         padding: 8px;
     }
-
-    #feedback-iframe {
-        height: calc(100% - 0px); /* iframe снова на всю высоту */
-    }
 }
+
 </style>
 
 <div id="feedback-widget-icon"></div>
@@ -115,9 +115,10 @@ function createAndAppendWidget() {
 
     document.body.appendChild(widgetContainer);
 
+    /* Элементы */
     const icon = document.getElementById("feedback-widget-icon");
-    const popup = document.getElementById("feedback-popup");
     const overlay = document.getElementById("feedback-overlay");
+    const popup = document.getElementById("feedback-popup");
     const closeBtn = document.getElementById("feedback-close-btn");
 
     function openPopup() {
