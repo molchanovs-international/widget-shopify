@@ -7,7 +7,7 @@ function createAndAppendWidget(utm_source_id) {
 
     // Build iframe URL with manually provided UTM
     const iframeURL =
-        "https://move.molchanovs.com/version-12vig/iframe" +
+        "https://move.molchanovs.com/iframe" +
         (utm_source_id ? `?utm_source_id=${encodeURIComponent(utm_source_id)}` : "");
 
     widgetContainer.innerHTML = `
